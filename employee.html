@@ -17,6 +17,14 @@
       margin: auto;
       text-align: center;
     }
+    #employeePhoto {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
     h3 {
       margin-top: 0;
       color: #333;
@@ -36,31 +44,23 @@
     const urlParams = new URLSearchParams(window.location.search);
     const empId = urlParams.get("id");
 
-    // 2. Your employee data (you can add more entries here)
+    // 2. Your employee data
     const employees = {
       "E001": {
         name: "Shyam Gupta",
-        dept: "IT",
-        contact: "9876543210"
-      },
-      "E002": {
-        name: "Anjali Sharma",
-        dept: "HR",
-        contact: "9123456789"
-      },
-      "E003": {
-        name: "Raj Patel",
-        dept: "Finance",
-        contact: "9988776655"
+        dept: "IT Department",
+        contact: "9876543210",
+        image: "https://guptashyam69.github.io/employee-id/images/SHAY.png"
       }
     };
 
-    // 3. Show employee data or error
+    // 3. Display data
     const data = employees[empId];
     const display = document.getElementById("employeeData");
 
     if (data) {
       display.innerHTML = `
+        <img id="employeePhoto" src="${data.image}" alt="Photo of ${data.name}">
         <h3>${data.name}</h3>
         <p><strong>Department:</strong> ${data.dept}</p>
         <p><strong>Contact:</strong> ${data.contact}</p>
