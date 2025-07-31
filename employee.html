@@ -52,7 +52,8 @@
         contact: "9876543210",
         blood: "AB+",
         email: "guptashyam1121@gmail.com",
-        image: "https://guptashyam69.github.io/employee-id/SHAY.png"
+        image: "https://guptashyam69.github.io/employee-id/SHAY.png",
+        image1: "https://guptashyam69.github.io/employee-id/logo.png"
       }
     };
 
@@ -61,7 +62,8 @@
     const display = document.getElementById("employeeData");
 
     if (data) {
-      display.innerHTML = `
+      display.innerHTML = 
+        <img id="logo" src="${data.image1}"`>
         <img id="employeePhoto" src="${data.image}" alt="Photo of ${data.name}">
         <h3>${data.name}</h3>
         <p><strong>Role:</strong> ${data.role}</p>
