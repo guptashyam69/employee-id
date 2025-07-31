@@ -2,8 +2,6 @@
 <html>
 <head>
   <title>Employee Info</title>
-  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,58 +11,62 @@
     #infoBox {
       background: white;
       padding: 20px;
-      border-radius: 12px;
+      border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       max-width: 400px;
       margin: auto;
       text-align: center;
     }
     h3 {
-      margin-bottom: 10px;
+      margin-top: 0;
+      color: #333;
     }
-    .not-found {
-      color: red;
+    p {
+      margin: 5px 0;
     }
   </style>
 </head>
 <body>
-  <div id="infoBox">Loading employee data...</div>
+  <div id="infoBox">
+    <div id="employeeData">Loading employee data...</div>
+  </div>
 
   <script>
-    // ✅ Firebase Config
-    const firebaseConfig = {
-      apiKey: "AIzaSyDjHSTVCS7IUyKlz1sPXm9zhZUIZUQC_-c",
-      authDomain: "founder-id.firebaseapp.com",
-      projectId: "founder-id",
-      storageBucket: "founder-id.firebasestorage.app",
-      messagingSenderId: "157782317883",
-      appId: "1:157782317883:web:7a6a76e508b1b9d932b51e"
+    // 1. Get ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const empId = urlParams.get("id");
+
+    // 2. Your employee data (you can add more entries here)
+    const employees = {
+      "E001": {
+        name: "Shyam Gupta",
+        dept: "IT",
+        contact: "9876543210"
+      },
+      "E002": {
+        name: "Anjali Sharma",
+        dept: "HR",
+        contact: "9123456789"
+      },
+      "E003": {
+        name: "Raj Patel",
+        dept: "Finance",
+        contact: "9988776655"
+      }
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    // 3. Show employee data or error
+    const data = employees[empId];
+    const display = document.getElementById("employeeData");
 
-    // ✅ Get Employee ID from URL (e.g., ?id=E001)
-    const urlParams = new URLSearchParams(window.location.search);
-    const empID = urlParams.get("id");
-
-    if (empID) {
-      db.collection("employees").doc(empID).get().then(doc => {
-        if (doc.exists) {
-          const data = doc.data();
-          document.getElementById("infoBox").innerHTML = `
-            <h3>${data.name}</h3>
-            <p><strong>Department:</strong> ${data.dept}</p>
-            <p><strong>Contact:</strong> ${data.contact}</p>
-          `;
-        } else {
-          document.getElementById("infoBox").innerHTML = `<p class="not-found">Employee not found</p>`;
-        }
-      }).catch(err => {
-        document.getElementById("infoBox").innerHTML = `<p class="not-found">Error: ${err.message}</p>`;
-      });
+    if (data) {
+      display.innerHTML = `
+        <h3>${data.name}</h3>
+        <p><strong>Department:</strong> ${data.dept}</p>
+        <p><strong>Contact:</strong> ${data.contact}</p>
+      `;
     } else {
-      document.getElementById("infoBox").innerHTML = `<p class="not-found">Invalid or missing ID in URL</p>`;
+      display.innerHTML = `<p style="color:red;">Employee not found or ID missing</p>`;
     }
   </script>
 </body>
