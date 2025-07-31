@@ -25,6 +25,10 @@
       margin-bottom: 15px;
       box-shadow: 0 0 5px rgba(0,0,0,0.2);
     }
+    #logo {
+      width: 100px;
+      margin-bottom: 15px;
+    }
     h3 {
       margin-top: 0;
       color: #333;
@@ -62,8 +66,8 @@
     const display = document.getElementById("employeeData");
 
     if (data) {
-      display.innerHTML = 
-        <img id="logo" src="${data.image1}"`>
+      display.innerHTML = `
+        <img id="logo" src="${data.image1}" alt="Logo">
         <img id="employeePhoto" src="${data.image}" alt="Photo of ${data.name}">
         <h3>${data.name}</h3>
         <p><strong>Role:</strong> ${data.role}</p>
